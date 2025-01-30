@@ -30,9 +30,20 @@ def open_gift_box():
 
 
 
-def factorial(n):
-    if n == 1:
-        return 1
-    return n * factorial(n-1)
+# def factorial(n):
+#     if n == 1:
+#         return 1
+#     return n * factorial(n-1)
 
-print(factorial(4))
+# print(factorial(4))
+
+import sys
+
+def recursive_function(n):
+    if n == 0:
+        return
+    recursive_function(n - 1)
+
+# # sys.setrecursionlimit(2000)  # 재귀 호출 최대 깊이를 2000으로 설정
+# recursive_function(10000000)  # 재귀 호출
+# print("재귀 호출 완료") 

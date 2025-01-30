@@ -99,12 +99,68 @@ class BinarySearchTree:
         self.__r_insert(self.root, value) 
      
 
+    def __delete_node(self,current_node,value):
+        ###------  if left or right is None --------------###
+        if current_node == None:
+            return None
+        ###----------------------------------------------###
 
+        ###-----------Find value to delete -----------------------------###
+        if value < current_node.value:
+            current_node.left = self.__delete_node(current_node.left, value)
+        elif value > current_node.value:
+            current_node.right = self.__delete_node(current_node.right, value)
+        ###-------------------------------------------------------------###
+
+        ###----------- if you find value check children ----------------###
+        else:
+            ### ------------ 1. LEAF Status ------------------- ###
+            if current_node.left == None and current_node.right == None:
+                return None
+
+            ### ------------ 2. ONLY RIGHT CHILD EXIST ---------###
+            elif current_node.left == None:
+                current_node = current_node.right
+
+            ### ------------ 3. ONLY LEFT CHILD EXIST ----------###
+            elif current_node.right == None:
+                current_node = current_node.left
+
+            ### ------------ 4. BOTH CHILD EXIST ------------------- ###
+            else:
+                sub_tree_min = self.min_value(current_node.right)
+                current_node.value = sub_tree_min
+                current_node.right = self.__delete_node(current_node.right, sub_tree_min)
+        return current_node
+
+    
+    def delete_node(self,value):
+        if self.root == None:
+            return None
+        self.root = self.__delete_node(self.root , value)
+    
+    def min_value(self,current_node):
+        while current_node.left is not None:
+            current_node = current_node.left
+        return current_node.value
 
 my_tree = BinarySearchTree()
 my_tree.r_inserts(47)
 my_tree.r_inserts(21)
+my_tree.r_inserts(76)
 my_tree.r_inserts(18)
+my_tree.r_inserts(27)
+my_tree.r_inserts(52)
+my_tree.r_inserts(82)
+my_tree.r_inserts(25)
+my_tree.r_inserts(29)
+
+print(my_tree)
+my_tree.delete_node(28)
+# my_tree = BinarySearchTree()
+# my_tree.r_inserts(47)
+# my_tree.r_inserts(21)
+# my_tree.r_inserts(18)
 """
      THE LINES ABOVE CREATE THIS TREE:
                 42
